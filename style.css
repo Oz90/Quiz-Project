@@ -1,0 +1,161 @@
+:root {
+    font-size: 70%;
+}
+    
+    
+* { 
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #676F54; 
+}
+
+h3, h1, h2 {
+    margin-bottom: 1rem;
+    font-size: 4rem;
+    color: #D7F2BA;
+}
+
+.scoreBox {
+    display: flex;
+    justify-content: center;
+}
+
+.currentScore {
+    display: flex;
+    justify-content: center;
+
+}
+
+.numberOfQuestionsContainer {
+    font-size: 2rem;
+    color: #D7F2BA;
+    display: flex;
+    justify-content: center;
+}
+
+.theQuiz {
+    display: flex;
+    justify-content: center;
+}
+
+.answer {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: larger;
+}
+
+.answer:hover {
+    cursor: pointer;
+    box-shadow: 0 0.2rem 1rem 0 rgba(156, 198, 155, 0.4);;
+    transform: translateX(0.3rem);
+    transition: transform 200ms;
+}
+
+
+.answerChoice {
+    padding: 1.5rem;
+    width: 100%;
+    border: 0.2rem solid rgb(189, 228, 186);
+    background-color:  #e6ffe6;
+    color: #676F54;
+}
+.answerSelector {
+    padding: 1.5rem 1.5rem;
+    color: #D7F2BA;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+h1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+
+}
+
+#currentScore {
+    white-space: pre-wrap;
+    font-weight:bold;
+}
+
+.lowerBox {
+    display: flex;
+    justify-content: center;
+    font-size: 2rem;
+    margin-left: 4rem;
+    color: #D7F2BA;
+}
+#nextQ {
+    margin-left: 48rem;
+}
+.question {
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 60rem;
+    margin: auto;
+    padding: 1rem;
+}
+
+.question > p {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.hidden {
+    display: none;
+}
+
+/*BUTTONS*/
+
+#button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
+
+
+.btn {
+    font-size: 1rem;
+    border: 0.1rem solid rgb(189, 228, 186);;
+    padding: 0;
+    width: 12rem;
+    height: 3rem;
+    text-align: center;
+    background-color: white;
+    border-radius: 0.5rem;
+    color: #676F54;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.btn:hover {
+    cursor: pointer;
+    box-shadow: 0 0.2rem 1rem 0 rgba(156, 198, 155, 0.4);
+    transform: translateX(0.1rem);
+    transition: transform 200ms;
+}
+
+
+.btn[disabled]:hover {
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
