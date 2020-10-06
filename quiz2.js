@@ -16,6 +16,8 @@
  7. Ska användaren kunna välja hur många frågor som ska visas? 5-10?
 */
 
+//Testing branch
+
 window.addEventListener("DOMContentLoaded", function(e) {
     let theQuestion = document.getElementById("theQuiz");
     let answerChoices = Array.from(document.getElementsByClassName("answerChoice"));
