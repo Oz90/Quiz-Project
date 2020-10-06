@@ -10,6 +10,7 @@
     padding: 0;
 }
 
+
 body {
     background-color: #676F54; 
 }
@@ -123,16 +124,15 @@ h1 {
 
 /*BUTTONS*/
 
-#button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: auto;
-}
+
 
 
 
 .btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
     font-size: 1rem;
     border: 0.1rem solid rgb(189, 228, 186);;
     padding: 0;
@@ -158,4 +158,8 @@ h1 {
     cursor: not-allowed;
     box-shadow: none;
     transform: none;
+}
+
+.hide {
+    display: none;
 }

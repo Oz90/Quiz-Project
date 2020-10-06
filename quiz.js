@@ -51,6 +51,7 @@ class QuestionSet{
     for (let question of this.questions) {
       let questionDiv = document.createElement("div");
       questionDiv.classList.add("question");
+      questionDiv.setAttribute("data-id", question.id)
       let showQuestion = document.createElement("h3");
       questionDiv.append(showQuestion);
       showQuestion.classList.add("theQuiz");
@@ -66,17 +67,57 @@ class QuestionSet{
           let firstP = document.createElement("p");
           firstP.classList.add("answerSelector");
           firstP.innerHTML = answerNumber;
-          let secondP = document.createElement("p");
-          secondP.classList.add("answerChoice");
-          secondP.setAttribute("data-answer", key);
-          secondP.textContent = answer;
+          let label = document.createElement("label");
+          label.classList.add("answerChoice");
+          label.setAttribute("for", question.id + "-" + key);
+          label.textContent = answer;
+          let checkbox = document.createElement("input");
+          checkbox.setAttribute("type", "checkbox");
+          checkbox.setAttribute("name", "question_" + question.id);
+          checkbox.setAttribute("id", question.id + "-" + key);
+          checkbox.setAttribute("value", key);
           answerDiv.append(firstP);
-          answerDiv.append(secondP);
+          answerDiv.append(label);
+          answerDiv.append(checkbox);
           questionDiv.append(answerDiv);
         }
       }
-    }  
+    }
+
+    let completeQuizButton = document.createElement("button");
+    completeQuizButton.innerHTML = "Complete quiz";
+    completeQuizButton.classList.add("btn");
+    completeQuizButton.classList.add("startBtn");
+    questionsContainer.append(completeQuizButton);
     console.log(this.questions);
+    const that = this;
+    completeQuizButton.addEventListener("click", function(e) {
+      that.summarizeScore(that.questions);
+    });
+  }
+
+  summarizeScore(){
+    let questions = document.querySelectorAll(".question");
+    let score = 0;
+    console.log(this.questions);
+
+    for (const question of questions) {
+      const questionId = parseInt(question.getAttribute("data-id"));
+      const playerAnswers = question.querySelectorAll("[type='checkbox']:checked");
+      
+      const currentQuestion = Object.values(this.questions).filter(function (question) {
+        return question.id === questionId;
+      });
+
+      const correctAnswers = currentQuestion[0].correct_answers;
+
+      for (const playerAnswer of playerAnswers) {
+        if (correctAnswers[playerAnswer.value + "_correct"] === "true") {
+          score++;
+        }
+      }
+    }
+    console.log(score);
   }
 }
 
@@ -85,19 +126,13 @@ let button = document.getElementById("button");
 button.addEventListener("click", function(e) {
   let numberOfQuestions = document.querySelector(".numberOfQuestions").value;
   document.querySelector(".questions").innerHTML = "";
+  button.classList.add("hide");
   //console.log(numberOfQuestions);
   fetch(`https://quizapi.io/api/v1/questions?apiKey=KCL6vlHoXucS9J3xWehrJTI9Y3JX5zrcxhwPAGTG&category=code&difficulty=Easy&limit=${numberOfQuestions}&tags=JavaScript`)
       .then(response => response.json())
       .then(data => {
           let questions = new QuestionSet(data);
           questions.list();
-          const answers = document.querySelectorAll(".answer");
-          for (const answer of answers) {
-            answer.addEventListener("click", function(e) {
-              const answerValue = e.target.getAttribute("data-answer");
-              console.log(answerValue);
-            });
-          }
       });
   });
 });
