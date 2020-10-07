@@ -10,6 +10,10 @@
     padding: 0;
 }
 
+.finalDiv {
+    display: flex;
+    justify-content: center;
+}
 
 body {
     background-color: #676F54; 
@@ -19,6 +23,12 @@ h3, h1, h2 {
     margin-bottom: 1rem;
     font-size: 4rem;
     color: #D7F2BA;
+}
+
+h4 {
+    color: #D7F2BA;
+    font-size: 3rem;
+
 }
 
 .scoreBox {
