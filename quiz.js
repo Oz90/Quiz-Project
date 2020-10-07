@@ -17,18 +17,6 @@
 */
 
 window.addEventListener("DOMContentLoaded", function(e) {
-let theQuestion = document.getElementById("theQuiz");
-let answerChoices = Array.from(document.getElementsByClassName("answerChoice"));
-let rounds = document.getElementById("rounds");
-let totalScore = document.getElementById("totalScore");
-
-let currentQuestion = {};
-let counter = 0;
-let score = 0;
-let totalQuestions = "";
-
-let rightPoints = 1;
-
 class Question {
   constructor(question) {
     this.id = question.id;
@@ -136,87 +124,3 @@ button.addEventListener("click", function(e) {
       });
   });
 });
-
-
-
-
-/* Kod på hur vi löste att hämta data från API på lektionen
-
-window.addEventListener("DOMContentLoaded", function (e) {
-    class User {
-      constructor(name, lastname, mail) {
-        this.name = name;
-        this.lastname = lastname;
-        this.mail = mail;
-        this.addUser();
-      }
-  
-      addUser() {
-        let newRow = document.createElement("tr");
-        let table = document.getElementById("table");
-        table.appendChild(newRow);
-  
-        let newTdName = document.createElement("td");
-        newTdName.innerHTML = this.name;
-        newRow.appendChild(newTdName);
-  
-        let newTdLastname = document.createElement("td");
-        newTdLastname.innerHTML = this.lastname;
-        newRow.appendChild(newTdLastname);
-  
-        let newTdMail = document.createElement("td");
-        newTdMail.innerHTML = this.mail;
-        newRow.appendChild(newTdMail);
-  
-        let newTdDelete = document.createElement("td");
-        newRow.appendChild(newTdDelete);
-  
-        let addDeleteBtn = document.createElement("button");
-        addDeleteBtn.className = "btn btn-dark btn-sm float-right delete";
-        addDeleteBtn.innerHTML = "X";
-        newTdDelete.append(addDeleteBtn);
-      }
-    }
-  
-  
-    let confirmBtn = document.getElementById("confirmBtn");
-    confirmBtn.addEventListener("click", function (e) {
-      let firstname_value = document.getElementById("input_name").value;
-      let lastname_value = document.getElementById("input_lastname").value;
-      let mail_value = document.getElementById("input_mail").value;
-  
-      let user = new User(firstname_value, lastname_value, mail_value);
-    });
-  
-    let fetchBtn = document.getElementById("fetchBtn");
-  
-    fetchBtn.addEventListener("click", function (e) {
-      fetch("https://randomuser.me/api/")
-        .then((response) => response.json())
-        .then((data) => {
-          let first = data.results[0].name.first;
-          let last = data.results[0].name.last;
-          let mail = data.results[0].email;
-  
-          let randomUser = new User(first, last, mail);
-        });
-    });
-  
-    let selectUsers = document.getElementById("totalUsers");
-  
-    selectUsers.addEventListener("change", function (e) {
-      fetch("https://randomuser.me/api/?results=5")
-        .then((response) => response.json())
-        .then((data) => {
-          for (let i = 0; i < Number(selectUsers.value); i++) {
-            let gen_first = data.results[i].name.first;
-            console.log(gen_first);
-            let gen_last = data.results[i].name.last;
-            console.log(gen_last);
-            let gen_mail = data.results[i].email;
-            console.log(gen_mail);
-            let random_user = new User(gen_first, gen_last, gen_mail);
-          }
-        });
-    });
-  });*/
