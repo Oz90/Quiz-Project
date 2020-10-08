@@ -1,36 +1,7 @@
-/* Tankar kring koden
- En array som sparar alla svar användaren har valt, 
- för att sedan jämföra mot en array med de rätta svaren för att se om de är rätt?
- Något som uppdaterar "round count" på hemsidan varje gång man trycker på knappen "Ny fråga".
- Varje gång man trycker på knappen "ny fråga" 
- (Kanske byta till "Starta spel" och gråa ut den när man tryckt?) ska följande ske:
- 1. En ny fråga kommer in under h3 taggens innerHTML. Hämtas från data[i].question
- 2. Alla svarsalternativ kommer upp under respektive paragraf tagg. Hur löses detta?
- 2 (forts). Möjligtvis en loop som loopar alla svarsalternativ data[i].answers[j]?
- 3. Man ska kunna trycka på en knapp för nästa fråga 
- 3 (forts). Ska det vara en separat knapp? Kanske två knappar så man kan gå fram och tillbaka mellan frågorna?
- 4. På sista frågan (10) ska man kunna trycka på en Submit answers knapp.
- 4 (forts). Hur progarmmerar man på bästa sätt för att få fram den knappen när man kommit till fråga 10?
- 5. När man är färdig ska man kunna se hur många poäng man fick. Hur lösa detta?
- 6. När man är färdig ska "Starta spel" knappen bli aktiv igen så man kan starta nytt spel.
- 7. Ska användaren kunna välja hur många frågor som ska visas? 5-10?
-*/
-
-window.addEventListener("DOMContentLoaded", function(e) {
   const questionsContainer = document.querySelector(".questions");
   const body = document.querySelector("body"); 
-  let upperDiv = document.querySelector(".upperDiv");
+  let topContainer = document.querySelector(".topContainer");
     
-  
-  class Question {
-    constructor(question) {
-      this.id = question.id;
-      this.question = question.question;
-      this.answers = question.answers;
-      this.correct_answers = question.correct_answers;
-    }
-  }
-  
   class QuestionSet{
     constructor(questions){
       this.questions = [];
@@ -38,7 +9,19 @@ window.addEventListener("DOMContentLoaded", function(e) {
         this.questions.push(new Question(question));
       }
     }
-    list() {
+    // The list method is called when player starts the quiz
+    // The list method lists all the questions from the API to the browser
+    // and creates the DOM. 
+    // The list method also has an event listener for the complete quiz button that calls
+    // the summarizeScore
+    addPlayer() {
+    let playerName = document.getElementById("playerNameInput").value;
+    let newPlayer = new Player(playerName);
+
+    this.list(newPlayer);
+    }
+
+    list(newPlayer) {
       
       for (let question of this.questions) {
         let questionDiv = document.createElement("div");
@@ -75,6 +58,7 @@ window.addEventListener("DOMContentLoaded", function(e) {
           }
         }
       }
+
       let completeQuizButton = document.createElement("button");
       completeQuizButton.innerHTML = "Complete quiz";
       completeQuizButton.classList.add("btn");
@@ -83,13 +67,17 @@ window.addEventListener("DOMContentLoaded", function(e) {
       console.log(this.questions);
       const that = this;
       completeQuizButton.addEventListener("click", function(e) {
-        that.summarizeScore(that.questions);
+        that.summarizeScore(newPlayer);
       });
     }
-  
-    summarizeScore(){
+
+
+    // Method is called when player presses on "Complete Quiz"-button. 
+    // Method checks correct answers and gives scores accordingly.
+    // Also removes all the questions and creates a "final page" which lets you 
+    // choose if you want to play again.
+    summarizeScore(newPlayer){
       let questions = document.querySelectorAll(".question");
-      let score = 0;
       console.log(this.questions);
   
       for (const question of questions) {
@@ -101,18 +89,23 @@ window.addEventListener("DOMContentLoaded", function(e) {
         });
   
         const correctAnswers = currentQuestion[0].correct_answers;
-  
         for (const playerAnswer of playerAnswers) {
           if (correctAnswers[playerAnswer.value + "_correct"] === "true") {
-            score++;
+            //newPlayer.score = score++; //Varför assignas inte player klassens score? Står fortfarande 0?
+            newPlayer.addPlayerScore(); //
           }
         }
+        console.log(newPlayer);
       }
+      
+
+      // Here I remove the questionsContainer with all questions and create new elements
+      // That shows the players score and asks if they want to play again.
       questionsContainer.remove(questionsContainer);
       let finalDiv = document.createElement("div");
       finalDiv.classList.add("finalDiv");
       let finalUserScore = document.createElement("h2");
-      finalUserScore.innerHTML = "Your final score is: " + score;
+      finalUserScore.innerHTML = `Well played ${newPlayer.name}! Your final score was: ${newPlayer.score}`;
       let playAgain = document.createElement("h4");
       let playAgainButton = document.createElement("button");
       playAgainButton.innerHTML = "Play again";
@@ -124,27 +117,13 @@ window.addEventListener("DOMContentLoaded", function(e) {
       finalDiv.append(playAgainButton);
       body.append(finalDiv);
       
+      // Event listener on the play again button to re-create the DOM with the "select questions DIV".
       playAgainButton.addEventListener("click", function(e) {
         finalDiv.remove();
-        upperDiv.classList.remove("hide");
+        topContainer.classList.remove("hide");
         body.append(questionsContainer);
         questionsContainer.innerHTML = "";
       });
-      console.log(score);
+      //console.log(score);
     }
   }
-  
-  let button = document.getElementById("button");
-      
-  button.addEventListener("click", function(e) {
-    let numberOfQuestions = document.querySelector(".numberOfQuestions").value;
-    upperDiv.classList.add("hide");
-    //console.log(numberOfQuestions);
-    fetch(`https://quizapi.io/api/v1/questions?apiKey=KCL6vlHoXucS9J3xWehrJTI9Y3JX5zrcxhwPAGTG&category=code&difficulty=Easy&limit=${numberOfQuestions}&tags=JavaScript`)
-        .then(response => response.json())
-        .then(data => {
-            let questions = new QuestionSet(data);
-            questions.list();
-        });
-    });
-  });

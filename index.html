@@ -9,7 +9,11 @@
   <body>
     <h1>Quiztime!</h1>
 
-    <div class="upperDiv">
+    <div class="topContainer">
+      <div class="nameDiv">
+          <label for="">What is your name?</label>
+          <input type="text" id="playerNameInput">
+      </div>
       <div class="numberOfQuestionsContainer">
         <label for="">Choose your prefered number of questions</label>
         <select name="" class="numberOfQuestions">
@@ -30,17 +34,10 @@
     <div class="questions">
       <!-- Created in JS -->
     </div>
-    <!--<div class="lowerBox">
-      <p id="info">
-        You have answered <span id="rounds"> 0 </span> out of 10 questions.
-      </p>
-      <button class="btn nextQ" type="button" id="nextQ">Next Question</button>
-    </div>-->
-    <!--<div>
-      <h1>Your score was:</h1>
-      <h2 id="totalScore">0</h2>
-    </div>-->
-    <!--<script src="js/script.js"></script>--->
-    <script src="./quiz2.js"></script>
+
+    <script src="./script.js"></script>
+    <script src="./questionset.js"></script>
+    <script src="./question.js"></script>
+    <script src="./player.js"></script>
   </body>
 </html>
