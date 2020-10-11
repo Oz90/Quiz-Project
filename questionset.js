@@ -112,8 +112,8 @@
       playAgainButton.classList.add("btn");
       playAgainButton.classList.add("startBtn");
       playAgain.innerHTML = "Would you like to play again?";
-      finalUserScore.append(playAgain);
       finalDiv.append(finalUserScore);
+      finalDiv.append(playAgain);
       finalDiv.append(playAgainButton);
       body.append(finalDiv);
       
