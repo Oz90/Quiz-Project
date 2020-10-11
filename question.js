@@ -1,3 +1,4 @@
+
 class Question {
   constructor(question) {
     this.id = question.id;
@@ -6,5 +7,3 @@ class Question {
     this.correct_answers = question.correct_answers;
   }
 }
-
-// Testing for merge.

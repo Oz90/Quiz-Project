@@ -9,18 +9,19 @@
         this.questions.push(new Question(question));
       }
     }
-    // The list method is called when player starts the quiz
-    // The list method lists all the questions from the API to the browser
-    // and creates the DOM. 
-    // The list method also has an event listener for the complete quiz button that calls
-    // the summarizeScore
+
+    // Add player method creates a new object of the player class.
+    // passes the playername input as a parameter.
     addPlayer() {
     let playerName = document.getElementById("playerNameInput").value;
     let newPlayer = new Player(playerName);
 
     this.list(newPlayer);
     }
-
+    
+    //The list method lists everything in the browser, creates the DOM for the questions
+    // and answers.
+    // Is called when a player presses the start quiz button.
     list(newPlayer) {
       
       for (let question of this.questions) {
@@ -91,7 +92,6 @@
         const correctAnswers = currentQuestion[0].correct_answers;
         for (const playerAnswer of playerAnswers) {
           if (correctAnswers[playerAnswer.value + "_correct"] === "true") {
-            //newPlayer.score = score++; //Varför assignas inte player klassens score? Står fortfarande 0?
             newPlayer.addPlayerScore(); //
           }
         }
@@ -124,6 +124,5 @@
         body.append(questionsContainer);
         questionsContainer.innerHTML = "";
       });
-      //console.log(score);
     }
   }

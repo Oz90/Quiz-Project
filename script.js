@@ -5,9 +5,6 @@ window.addEventListener("DOMContentLoaded", () => {
 
   startButton.addEventListener("click", function(e) {
     topContainer.classList.add("hide");
-    // let playerName = document.getElementById("playerNameInput").value;
-    // let newPlayer = new Player(playerName, score);
-    // console.log(newPlayer);
     let numberOfQuestions = document.querySelector(".numberOfQuestions").value;
     let APIkey = "KCL6vlHoXucS9J3xWehrJTI9Y3JX5zrcxhwPAGTG";
     let url = `https://quizapi.io/api/v1/questions?apiKey=${APIkey}&category=code&difficulty=Easy&limit=${numberOfQuestions}&tags=JavaScript`;
