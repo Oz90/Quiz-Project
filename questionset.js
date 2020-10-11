@@ -1,6 +1,4 @@
   const questionsContainer = document.querySelector(".questions");
-  const body = document.querySelector("body"); 
-  let topContainer = document.querySelector(".topContainer");
     
   class QuestionSet{
     constructor(questions){
@@ -65,7 +63,6 @@
       completeQuizButton.classList.add("btn");
       completeQuizButton.classList.add("startBtn");
       questionsContainer.append(completeQuizButton);
-      console.log(this.questions);
       const that = this;
       completeQuizButton.addEventListener("click", function(e) {
         that.summarizeScore(newPlayer);
@@ -78,29 +75,42 @@
     // Also removes all the questions and creates a "final page" which lets you 
     // choose if you want to play again.
     summarizeScore(newPlayer){
+      // Declaring a variable for all "question class" elements
+      // Question is a HTML-class is the div that includes a question and it's answers.
       let questions = document.querySelectorAll(".question");
-      console.log(this.questions);
   
+      // Looping through every question on the page.
+      // questionId is checking the specific ID of a question (parseInt changes a string to a number)
+      // playerAnswers is checking which checkboxes a palyer has checked (the answers)
       for (const question of questions) {
         const questionId = parseInt(question.getAttribute("data-id"));
         const playerAnswers = question.querySelectorAll("[type='checkbox']:checked");
         
+        // currentQuestion makes the questions object to an array (consisting of 5 questions) 
+        // and filters that array to make a new array of every single question 
+        console.log(Object.values(this.questions));
         const currentQuestion = Object.values(this.questions).filter(function (question) {
           return question.id === questionId;
         });
+        console.log(currentQuestion);
   
+        // correctAnswers holds the correct_answers part of the question object (true/false/false/false)
         const correctAnswers = currentQuestion[0].correct_answers;
+        console.log(correctAnswers);
+
+        // This loop checks every checkbox the player has chosen
+        // and if that checkbox matches the correct_answer it will add a score to the player.
         for (const playerAnswer of playerAnswers) {
           if (correctAnswers[playerAnswer.value + "_correct"] === "true") {
             newPlayer.addPlayerScore(); //
           }
         }
-        console.log(newPlayer);
       }
       
 
       // Here I remove the questionsContainer with all questions and create new elements
       // That shows the players score and asks if they want to play again.
+      const body = document.querySelector("body"); 
       questionsContainer.remove(questionsContainer);
       let finalDiv = document.createElement("div");
       finalDiv.classList.add("finalDiv");
@@ -117,7 +127,8 @@
       finalDiv.append(playAgainButton);
       body.append(finalDiv);
       
-      // Event listener on the play again button to re-create the DOM with the "select questions DIV".
+      // Event listener on the play again button to re-create the DOM with the "select questions div".
+      let topContainer = document.querySelector(".topContainer");
       playAgainButton.addEventListener("click", function(e) {
         finalDiv.remove();
         topContainer.classList.remove("hide");

@@ -2,6 +2,7 @@ window.addEventListener("DOMContentLoaded", () => {
   // Declaring startbutton and adding an event listener to start the game,
   // fetch the API and hide the upper container.
   let startButton = document.getElementById("button");
+  let topContainer = document.querySelector(".topContainer");
 
   startButton.addEventListener("click", function(e) {
     topContainer.classList.add("hide");
