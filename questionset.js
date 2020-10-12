@@ -85,25 +85,32 @@
       for (const question of questions) {
         const questionId = parseInt(question.getAttribute("data-id"));
         const playerAnswers = question.querySelectorAll("[type='checkbox']:checked");
+        let answerScore = 0;
+        let scoreIsValid = false;
         
         // currentQuestion makes the questions object to an array (consisting of 5 questions) 
         // and filters that array to make a new array of every single question 
-        console.log(Object.values(this.questions));
         const currentQuestion = Object.values(this.questions).filter(function (question) {
           return question.id === questionId;
         });
-        console.log(currentQuestion);
   
         // correctAnswers holds the correct_answers part of the question object (true/false/false/false)
         const correctAnswers = currentQuestion[0].correct_answers;
-        console.log(correctAnswers);
 
-        // This loop checks every checkbox the player has chosen
-        // and if that checkbox matches the correct_answer it will add a score to the player.
+        //This loop checks every checkbox the player has chosen
+        //and if that checkbox matches the correct_answer it will add a score to the player.
         for (const playerAnswer of playerAnswers) {
           if (correctAnswers[playerAnswer.value + "_correct"] === "true") {
-            newPlayer.addPlayerScore(); //
+            answerScore++;
+            scoreIsValid = true;
+          } else {
+            scoreIsValid = false;
+            break;
           }
+        }
+
+        if(scoreIsValid === true){
+          newPlayer.addPlayerScore(answerScore);
         }
       }
       
